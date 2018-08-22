@@ -91,9 +91,9 @@ CLSM.anal.OUTpath = fullfile(CLSM.LESIONpath,'Results');
 mkdir(CLSM.anal.OUTpath);
 
 
-fn_lesionList = fullfile(CLSM.LESIONpath,'lesion_list.xlsx');
+fn_lesionList = fullfile(CLSM.LESIONpath,CLSM.fn_lesionlist);
 if ~exist(fn_lesionList,'file')
-    errordlg('cannot find lesion_list.xlsx')
+    errordlg(sprintf('cannot find %s',CLSM.fn_lesionlist));
     return;
 end
 lesionList = readtable(fn_lesionList);
@@ -111,9 +111,9 @@ CLSM.anal.OUTpath = fullfile(CLSM.LESIONpath,'Results');
 mkdir(CLSM.anal.OUTpath);
 
 
-fn_lesionList = fullfile(CLSM.LESIONpath,'lesion_list.xlsx');
+fn_lesionList = fullfile(CLSM.LESIONpath,CLSM.fn_lesionlist);
 if ~exist(fn_lesionList,'file')
-    errordlg('cannot find lesion_list.xlsx')
+    errordlg(sprintf('cannot find %s',CLSM.fn_lesionlist));
     return;
 end
 lesionList = readtable(fn_lesionList);
@@ -134,9 +134,9 @@ set(handles.fMRIpath,'String',fMRIpath);
 CLSM.fMRIpath = fMRIpath;
 
 % Load normal subject list
-fn_normalList = fullfile(CLSM.fMRIpath,'normal_list.xlsx');
+fn_normalList = fullfile(CLSM.fMRIpath,CLSM.fn_normallist);
 if ~exist(fn_normalList,'file')
-    errordlg('cannot find normal_list.xlsx')
+    errordlg(sprintf('cannot find %s',CLSM.fn_normallist));
     return;
 end
 normalList = readtable(fn_normalList);
@@ -151,9 +151,9 @@ CLSM.fMRIpath = fMRIpath;
 
 
 % Load normal subject list
-fn_normalList = fullfile(CLSM.fMRIpath,'normal_list.xlsx');
+fn_normalList = fullfile(CLSM.fMRIpath,CLSM.fn_normallist);
 if ~exist(fn_normalList,'file')
-    errordlg('cannot find normal_list.xlsx')
+    errordlg(sprintf('cannot find %s',CLSM.fn_normallist));
     return;
 end
 normalList = readtable(fn_normalList);
