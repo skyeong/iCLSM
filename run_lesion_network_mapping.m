@@ -25,21 +25,24 @@ OUTpath    = CLSM.anal.OUTpath;
 fmridir   = CLSM.prep.fmridir;   % fmri directory
 lesiondir = CLSM.anal.lesiondir;   % fmri directory
 group     = CLSM.group;
-ngrp      = hist(group,1:length(unique(group)));
+groupids  = unique(group);
+ngrp      = length(groupids);
 
-for g=1:length(ngrp),
+for i=1:ngrp
+    g = groupids(i);
     
     %----------------------------------------------------------------------
     % Creating positive lesion network maps (group-level)
     %----------------------------------------------------------------------
+    fprintf('Create Group Maps for Group ID=%d\n',g);
     CNT=[];
-    for j=1:length(lesionList),
+    for j=1:length(lesionList)
         if group(j)~=g, continue; end
         lesion_name = lesionList{j};
         fn = fullfile(OUTpath,'stat_individual',lesion_name,'spmT_0001_thr.nii');
         vo = spm_vol(fn);
         I = spm_read_vols(vo);
-        if isempty(CNT),
+        if isempty(CNT)
             CNT = I;
         else
             CNT = CNT+I;
@@ -53,11 +56,13 @@ for g=1:length(ngrp),
     outdir = fullfile(OUTpath,'lesion_network_mapping','positive'); mkdir(outdir);
     fn_out = fullfile(outdir,sprintf('count_g%d.nii',g));
     vout = vo;
+    vout.dt=[16,0];
     vout.fname=fn_out;
     spm_write_vol(vout,CNT);
     
     fn_out = fullfile(outdir,sprintf('percent_g%d.nii',g));
     vout = vo;
+    vout.dt=[16,0];
     vout.fname=fn_out;
     spm_write_vol(vout,PCT);
     
@@ -67,13 +72,13 @@ for g=1:length(ngrp),
     % Creating negative lesion network maps (group-level)
     %----------------------------------------------------------------------
     CNT=[];
-    for j=1:length(lesionList),
+    for j=1:length(lesionList)
         if group(j)~=g, continue; end
         lesion_name = lesionList{j};
         fn = fullfile(OUTpath,'stat_individual',lesion_name,'spmT_0002_thr.nii');
         vo = spm_vol(fn);
         I = spm_read_vols(vo);
-        if isempty(CNT),
+        if isempty(CNT)
             CNT = I;
         else
             CNT = CNT+I;
